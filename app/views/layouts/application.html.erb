@@ -11,5 +11,8 @@
 
   <body>
     <%= yield %>
+
+    <hr>
+    <%= debug(params) if Rails.env.development? %>
   </body>
 </html>
