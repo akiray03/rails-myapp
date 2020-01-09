@@ -26,6 +26,11 @@
     <%= form.password_field :password %>
   </div>
 
+  <div class="field">
+    <%= form.label :role %>
+    <%= form.select :role, User::ROLE_CHOICES %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
