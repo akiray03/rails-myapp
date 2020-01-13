@@ -1,9 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  email: MyString
+customer:
+  name: Customer Name
+  email: customer@example.com
+  password_digest: password_digest
+  role: customer
 
-two:
-  name: MyString
-  email: MyString
+support:
+  name: Support Name
+  email: support@example.com
+  password_digest: password_digest
+  role: support

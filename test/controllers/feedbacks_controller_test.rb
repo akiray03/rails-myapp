@@ -2,7 +2,10 @@ require 'test_helper'
 
 class FeedbacksControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @user = users(:customer)
+    @user.save
     @feedback = feedbacks(:one)
+    @feedback.user_id = @user.id
   end
 
   test "should get index" do
