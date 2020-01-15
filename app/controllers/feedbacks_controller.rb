@@ -10,6 +10,7 @@ class FeedbacksController < ApplicationController
   # GET /feedbacks/1
   # GET /feedbacks/1.json
   def show
+    @feedback_comment = FeedbackComment.new(feedback_id: @feedback.id)
   end
 
   # GET /feedbacks/new

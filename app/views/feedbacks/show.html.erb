@@ -29,3 +29,27 @@
 
 <%= link_to 'Edit', edit_feedback_path(@feedback) if current_user&.support? %>
 <%= link_to 'Back to feedbacks', feedbacks_path %>
+
+<h2>Comments</h2>
+
+<% @feedback.feedback_comments.each do |comment| %>
+  <p>
+    <strong>Comment By:</strong>
+    <%= comment.user.name %>
+    (<%= time_ago_in_words comment.created_at %> ago)
+
+    <pre><%= comment.body %></pre>
+  </p>
+<% end %>
+
+<%= form_with(model: @feedback_comment, url: feedback_comments_path(@feedback), local: true) do |form| %>
+  <h3>New Comment</h3>
+  <div class="field">
+    <%= form.label :body %>
+    <%= form.text_area :body, cols: 60, rows: 10 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
