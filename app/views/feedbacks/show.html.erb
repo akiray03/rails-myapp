@@ -1,3 +1,5 @@
+<%= link_to 'Back to feedbacks', feedbacks_path %>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -12,8 +14,17 @@
 
 <p>
   <strong>User:</strong>
-  <%= @feedback.user_id %>
+  <%= @feedback.user.name %>
 </p>
 
-<%= link_to 'Edit', edit_feedback_path(@feedback) %> |
-<%= link_to 'Back', feedbacks_path %>
+<p>
+  <strong>Post At:</strong>
+  <%= time_ago_in_words @feedback.created_at %> ago
+</p>
+
+<p>
+  <strong>Updated At:</strong>
+  <%= time_ago_in_words @feedback.updated_at %> ago
+</p>
+
+<%= link_to 'Back to feedbacks', feedbacks_path %>
