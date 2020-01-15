@@ -1,0 +1,2 @@
+class FeedbackComment < ApplicationRecord
+end

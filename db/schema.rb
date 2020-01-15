@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_09_054058) do
+ActiveRecord::Schema.define(version: 2020_01_15_100911) do
+
+  create_table "feedback_comments", force: :cascade do |t|
+    t.integer "feedback_id"
+    t.integer "user_id"
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "feedbacks", force: :cascade do |t|
     t.string "title"
