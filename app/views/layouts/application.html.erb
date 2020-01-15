@@ -16,6 +16,10 @@
     <%= yield %>
 
     <hr>
+    <% if current_user %>
+      <%= link_to 'Logout', logout_path %>
+    <% end %>
+
     <% if Rails.env.development? %>
       <%= debug(params) %>
       <%= debug({"session[:user_id]" => session[:user_id]}) %>
