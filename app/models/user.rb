@@ -13,4 +13,12 @@ class User < ApplicationRecord
             on: :create
   validates :password, presence: true, length: { minimum: 6 }, on: :create
   validates :role, presence: true, inclusion: ROLE_CHOICES
+
+  def customer?
+    role == "customer"
+  end
+
+  def support?
+    role == "support"
+  end
 end

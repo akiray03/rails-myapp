@@ -24,6 +24,10 @@ class FeedbacksController < ApplicationController
 
   # GET /feedbacks/1/edit
   def edit
+    unless current_user.support?
+      flash[:notice] = "Updating feedback requires support role."
+      redirect_back fallback_location: feedbacks_path
+    end
   end
 
   # POST /feedbacks
@@ -51,6 +55,17 @@ class FeedbacksController < ApplicationController
   # PATCH/PUT /feedbacks/1
   # PATCH/PUT /feedbacks/1.json
   def update
+    unless current_user
+      redirect_to login_path
+      return
+    end
+
+    unless current_user.support?
+      flash[:notice] = "Updating feedback requires support role."
+      redirect_back fallback_location: feedbacks_path
+      return
+    end
+
     respond_to do |format|
       if @feedback.update(feedback_params)
         format.html { redirect_to @feedback, notice: 'Feedback was successfully updated.' }

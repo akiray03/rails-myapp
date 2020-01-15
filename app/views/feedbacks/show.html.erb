@@ -9,7 +9,7 @@
 
 <p>
   <strong>Description:</strong>
-  <%= @feedback.description %>
+  <pre><%= @feedback.description %></pre>
 </p>
 
 <p>
@@ -27,4 +27,5 @@
   <%= time_ago_in_words @feedback.updated_at %> ago
 </p>
 
+<%= link_to 'Edit', edit_feedback_path(@feedback) if current_user&.support? %>
 <%= link_to 'Back to feedbacks', feedbacks_path %>
