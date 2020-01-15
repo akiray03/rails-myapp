@@ -3,9 +3,12 @@ require 'test_helper'
 class FeedbacksControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:customer)
+    @user.password = 'password'
     @user.save
     @feedback = feedbacks(:one)
     @feedback.user_id = @user.id
+
+    post login_path, params: { email: @user.email, password: 'password' }
   end
 
   test "should get index" do
@@ -20,7 +23,7 @@ class FeedbacksControllerTest < ActionDispatch::IntegrationTest
 
   test "should create feedback" do
     assert_difference('Feedback.count') do
-      post feedbacks_url, params: { feedback: { description: @feedback.description, title: @feedback.title, user_id: @feedback.user_id } }
+      post feedbacks_url, params: { feedback: { description: @feedback.description, title: @feedback.title } }
     end
 
     assert_redirected_to feedback_url(Feedback.last)
@@ -37,7 +40,8 @@ class FeedbacksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update feedback" do
-    patch feedback_url(@feedback), params: { feedback: { description: @feedback.description, title: @feedback.title, user_id: @feedback.user_id } }
+    @feedback.save
+    patch feedback_url(@feedback), params: { feedback: { description: @feedback.description, title: @feedback.title } }
     assert_redirected_to feedback_url(@feedback)
   end
 
