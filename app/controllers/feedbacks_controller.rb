@@ -14,6 +14,11 @@ class FeedbacksController < ApplicationController
 
   # GET /feedbacks/new
   def new
+    unless current_user
+      redirect_to login_path
+      return
+    end
+
     @feedback = Feedback.new
   end
 
@@ -24,6 +29,11 @@ class FeedbacksController < ApplicationController
   # POST /feedbacks
   # POST /feedbacks.json
   def create
+    unless current_user
+      redirect_to login_path
+      return
+    end
+
     @feedback = Feedback.new(feedback_params)
     @feedback.user_id = session[:user_id]
 
