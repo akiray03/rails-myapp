@@ -1,6 +1,6 @@
-<%= link_to 'Back to feedbacks', feedbacks_path %>
-
 <p id="notice"><%= notice %></p>
+
+<%= link_to 'Edit', edit_feedback_path(@feedback) if current_user&.support? %>
 
 <p>
   <strong>Title:</strong>
@@ -26,9 +26,6 @@
   <strong>Updated At:</strong>
   <%= time_ago_in_words @feedback.updated_at %> ago
 </p>
-
-<%= link_to 'Edit', edit_feedback_path(@feedback) if current_user&.support? %>
-<%= link_to 'Back to feedbacks', feedbacks_path %>
 
 <h2>Comments</h2>
 
