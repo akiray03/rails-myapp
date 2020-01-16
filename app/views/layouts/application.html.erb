@@ -14,7 +14,7 @@
 
     <% if current_user %>
       <p style="float: left">
-        Hi, <%= current_user.name %>
+        Hi, <%= current_user.name %> (role: <%= current_user.role %>)
       </p>
       <p style="float: right">
         <%= link_to 'Logout', logout_path %>
