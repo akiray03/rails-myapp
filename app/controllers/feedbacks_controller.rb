@@ -1,5 +1,5 @@
 class FeedbacksController < ApplicationController
-  before_action :set_feedback, only: [:show, :edit, :update, :destroy]
+  before_action :set_feedback, only: [:show]
 
   # GET /feedbacks
   # GET /feedbacks.json
@@ -23,14 +23,6 @@ class FeedbacksController < ApplicationController
     @feedback = Feedback.new
   end
 
-  # GET /feedbacks/1/edit
-  def edit
-    unless current_user.support?
-      flash[:notice] = "Updating feedback requires support role."
-      redirect_back fallback_location: feedbacks_path
-    end
-  end
-
   # POST /feedbacks
   # POST /feedbacks.json
   def create
@@ -48,31 +40,6 @@ class FeedbacksController < ApplicationController
         format.json { render :show, status: :created, location: @feedback }
       else
         format.html { render :new }
-        format.json { render json: @feedback.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /feedbacks/1
-  # PATCH/PUT /feedbacks/1.json
-  def update
-    unless current_user
-      redirect_to login_path
-      return
-    end
-
-    unless current_user.support?
-      flash[:notice] = "Updating feedback requires support role."
-      redirect_back fallback_location: feedbacks_path
-      return
-    end
-
-    respond_to do |format|
-      if @feedback.update(feedback_params)
-        format.html { redirect_to @feedback, notice: 'Feedback was successfully updated.' }
-        format.json { render :show, status: :ok, location: @feedback }
-      else
-        format.html { render :edit }
         format.json { render json: @feedback.errors, status: :unprocessable_entity }
       end
     end

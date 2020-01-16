@@ -34,38 +34,4 @@ class FeedbacksControllerTest < ActionDispatch::IntegrationTest
     get feedback_url(@feedback)
     assert_response :success
   end
-
-  test "should get edit with customer user" do
-    get edit_feedback_url(@feedback)
-    assert_redirected_to feedbacks_url
-  end
-
-  test "should get edit with support user" do
-    @user.role = "support"
-    @user.save
-    get edit_feedback_url(@feedback)
-    assert_response :success
-  end
-
-  test "should update feedback with customer user" do
-    @feedback.save
-    patch feedback_url(@feedback), params: { feedback: { description: @feedback.description, title: @feedback.title } }
-    assert_redirected_to feedbacks_url
-  end
-
-  test "should update feedback with support user" do
-    @user.role = "support"
-    @user.save
-    @feedback.save
-    patch feedback_url(@feedback), params: { feedback: { description: @feedback.description, title: @feedback.title } }
-    assert_redirected_to feedback_url(@feedback)
-  end
-
-  test "should destroy feedback" do
-    assert_difference('Feedback.count', -1) do
-      delete feedback_url(@feedback)
-    end
-
-    assert_redirected_to feedbacks_url
-  end
 end
