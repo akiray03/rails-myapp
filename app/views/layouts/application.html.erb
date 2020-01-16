@@ -11,16 +11,25 @@
 
   <body>
     <h1 style="text-align: center;"><a href="/">Feedback Service</a></h1>
-    <hr>
+
+    <% if current_user %>
+      <p style="float: left">
+        Hi, <%= current_user.name %>
+      </p>
+      <p style="float: right">
+        <%= link_to 'Logout', logout_path %>
+      </p>
+    <% else %>
+      <p style="float: right">
+      <%= link_to 'Login', login_path %> | <%= link_to 'Sign up', new_user_path %>
+      </p>
+    <% end %>
+
+    <hr style="clear: both">
 
     <%= yield %>
 
     <hr>
-    <% if current_user %>
-      <%= link_to 'Logout', logout_path %>
-    <% else %>
-      <%= link_to 'Login', login_path %> | <%= link_to 'Sign up', new_user_path %>
-    <% end %>
 
     <% if Rails.env.development? %>
       <%= debug(params) %>
