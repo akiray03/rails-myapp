@@ -1,2 +1,6 @@
-<h1>Admin::Feedbacks#edit</h1>
-<p>Find me in app/views/admin/feedbacks/edit.html.erb</p>
+<h1>Editing Feedback</h1>
+
+<%= render 'form', feedback: @feedback %>
+
+<%= link_to 'Show', admin_feedback_path(@feedback) %> |
+<%= link_to 'Back', admin_feedbacks_path %>
