@@ -1,6 +1,8 @@
 <h1>Login</h1>
 
 <%= form_with(model: nil) do |form| %>
+  <%= form.hidden_field :redirect_to, value: params[:redirect_to] %>
+
   <div class="field">
     <%= form.label :email %>
     <%= form.text_field :email %>

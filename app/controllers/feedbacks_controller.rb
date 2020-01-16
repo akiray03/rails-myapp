@@ -16,7 +16,7 @@ class FeedbacksController < ApplicationController
   # GET /feedbacks/new
   def new
     unless current_user
-      redirect_to login_path
+      redirect_to login_path(redirect_to: new_feedback_path)
       return
     end
 
@@ -35,7 +35,7 @@ class FeedbacksController < ApplicationController
   # POST /feedbacks.json
   def create
     unless current_user
-      redirect_to login_path
+      redirect_to login_path(redirect_to: feedbacks_path)
       return
     end
 
