@@ -29,11 +29,5 @@
 
     <%= yield %>
 
-    <hr>
-
-    <% if Rails.env.development? %>
-      <%= debug(params) %>
-      <%= debug({"session[:user_id]" => session[:user_id]}) %>
-    <% end %>
   </body>
 </html>
