@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     if user.authenticate(params[:password])
       session[:user_id] = user.id
       path = params[:redirect_to]
-      if path && path =~ /^\//
+      if path && path =~ /^\// && path != "/users/new"
         redirect_to path
       else
         redirect_to root_path
