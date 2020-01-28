@@ -6,7 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-unless User.find_by(email: 'customer@example.com')
+if User.find_by(email: 'customer@example.com')
+  puts "* User(customer@example.com) is already exists."
+else
   User.create(
       {
           name: 'Customer User',
@@ -15,9 +17,12 @@ unless User.find_by(email: 'customer@example.com')
           role: 'customer'
       }
   )
+  puts "* User(customer@example.com) is created."
 end
 
-unless User.find_by(email: 'support@example.com')
+if User.find_by(email: 'support@example.com')
+  puts "* User(support@example.com) is already exists."
+else
   User.create(
       {
           name: 'Support User',
@@ -26,4 +31,5 @@ unless User.find_by(email: 'support@example.com')
           role: 'support'
       }
   )
+  puts "* User(support@example.com) is created."
 end
