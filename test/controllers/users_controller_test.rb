@@ -15,7 +15,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create user" do
+  test "should create user and login by anonymous user" do
     assert_difference('User.count') do
       post users_url, params: {
           user: {
@@ -28,7 +28,32 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to user_url(User.last)
+    assert_equal User.last.id, session[:user_id]
   end
+
+  test "should create user and login by logged-in user" do
+    support_user = users(:support)
+    support_user.password = 'password'
+    support_user.save!
+
+    post login_process_path, params: {email: support_user.email, password: 'password'}
+
+    assert_difference('User.count') do
+      post users_url, params: {
+          user: {
+              email: "user-#{User.count}@example.com",
+              name: @user.name,
+              password: "something-password",
+              role: @user.role
+          }
+      }
+    end
+
+    assert_redirected_to user_url(User.last)
+    # login user is not changed.
+    assert_equal support_user.id, session[:user_id]
+  end
+
 
   test "should show user" do
     get user_url(@user)

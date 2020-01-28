@@ -28,6 +28,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        # 未ログイン状態でユーザを作成した場合には、そのユーザとしてログインする
+        unless session[:user_id]
+          session[:user_id] = @user.id
+        end
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
