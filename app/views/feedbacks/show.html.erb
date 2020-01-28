@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_admin_feedback_path(@feedback) if current_user&.support? %>
+<%= link_to 'Edit', edit_feedback_path(@feedback) if current_user&.support? %>
 
 <p>
   <strong>Title:</strong>

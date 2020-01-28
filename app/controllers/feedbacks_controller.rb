@@ -26,6 +26,15 @@ class FeedbacksController < ApplicationController
     @feedback = Feedback.new
   end
 
+  def edit
+    @feedback = Feedback.find(params[:id])
+
+    unless current_user&.support?
+      flash[:notice] = "Cloud not access to feedback admin page."
+      redirect_to @feedback
+    end
+  end
+
   # POST /feedbacks
   # POST /feedbacks.json
   def create

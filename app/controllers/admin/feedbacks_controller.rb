@@ -1,13 +1,4 @@
 class Admin::FeedbacksController < ApplicationController
-  def edit
-    @feedback = Feedback.find(params[:id])
-
-    unless current_user&.support?
-      flash[:notice] = "Cloud not access to feedback admin page."
-      redirect_to @feedback
-    end
-  end
-
   def update
     @feedback = Feedback.find(params[:id])
 

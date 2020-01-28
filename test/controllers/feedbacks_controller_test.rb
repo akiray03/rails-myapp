@@ -34,4 +34,30 @@ class FeedbacksControllerTest < ActionDispatch::IntegrationTest
     get feedback_url(@feedback)
     assert_response :success
   end
+
+  test "should get edit redirect to feedback page" do
+    @user.role = "customer"
+    @user.save!
+    get edit_feedback_url(@feedback)
+    assert_redirected_to feedback_path(@feedback)
+  end
+
+  test "should get edit" do
+    @user.role = "support"
+    @user.save!
+    get edit_feedback_url(@feedback)
+    assert_response :success
+  end
+
+  test "should get edit with customer user" do
+    get edit_feedback_url(@feedback)
+    assert_redirected_to feedback_url(@feedback)
+  end
+
+  test "should get edit with support user" do
+    @user.role = "support"
+    @user.save
+    get edit_feedback_url(@feedback)
+    assert_response :success
+  end
 end

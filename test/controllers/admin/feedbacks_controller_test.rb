@@ -12,32 +12,6 @@ class Admin::FeedbacksControllerTest < ActionDispatch::IntegrationTest
     post login_path, params: { email: @user.email, password: 'password' }
   end
 
-  test "should get edit redirect to feedback page" do
-    @user.role = "customer"
-    @user.save!
-    get edit_admin_feedback_url(@feedback)
-    assert_redirected_to feedback_path(@feedback)
-  end
-
-  test "should get edit" do
-    @user.role = "support"
-    @user.save!
-    get edit_admin_feedback_url(@feedback)
-    assert_response :success
-  end
-
-  test "should get edit with customer user" do
-    get edit_admin_feedback_url(@feedback)
-    assert_redirected_to feedback_url(@feedback)
-  end
-
-  test "should get edit with support user" do
-    @user.role = "support"
-    @user.save
-    get edit_admin_feedback_url(@feedback)
-    assert_response :success
-  end
-
   test "should update feedback with customer user" do
     @feedback.save
     @user.role = "support"
