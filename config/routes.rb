@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :feedbacks
   end
   get    '/login',   to: 'sessions#new', as: :login
-  post   '/login',   to: 'sessions#create'
+  post   '/login',   to: 'sessions#create', as: :login_process
   get    '/logout',  to: 'sessions#destroy', as: :logout
   delete '/logout',  to: 'sessions#destroy'
   resources :feedbacks do
