@@ -14,6 +14,7 @@
 $ bundle install --path vendor/bundle
 $ yarn install --check-files
 $ rails db:migrate
+$ rails db:seed
 $ rails server
 ```
 
