@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Feedbacks</h1>
+<h1><%= current_user.support? ? "All Feedbacks": "My Feedbacks" %></h1>
 
 <table>
   <thead>

@@ -4,7 +4,17 @@ class FeedbacksController < ApplicationController
   # GET /feedbacks
   # GET /feedbacks.json
   def index
-    @feedbacks = Feedback.joins(:user).all.order(updated_at: :desc)
+    unless current_user
+      flash[:notice] = "Please login"
+      redirect_to login_path(redirect_to: request.path)
+      return
+    end
+
+    if current_user.support?
+      @feedbacks = Feedback.all.order(updated_at: :desc)
+    else
+      @feedbacks = Feedback.where(user_id: current_user.id).order(updated_at: :desc)
+    end
   end
 
   # GET /feedbacks/1
