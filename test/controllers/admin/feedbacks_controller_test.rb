@@ -42,7 +42,7 @@ class Admin::FeedbacksControllerTest < ActionDispatch::IntegrationTest
     @user.role = "customer"
     @user.save!
     get edit_admin_feedback_url(@feedback)
-    assert_redirected_to root_url
+    assert_redirected_to feedback_path(@feedback)
   end
 
   test "should get edit" do
