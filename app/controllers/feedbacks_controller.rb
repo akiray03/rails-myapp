@@ -4,11 +4,7 @@ class FeedbacksController < ApplicationController
   # GET /feedbacks
   # GET /feedbacks.json
   def index
-    unless current_user
-      flash[:notice] = "Please login"
-      redirect_to login_path(redirect_to: request.path)
-      return
-    end
+    redirect_to_login_page_if_anonymous_user and return
 
     if current_user.support?
       @feedbacks = Feedback.all.order(updated_at: :desc)
@@ -25,10 +21,7 @@ class FeedbacksController < ApplicationController
 
   # GET /feedbacks/new
   def new
-    unless current_user
-      redirect_to login_path(redirect_to: new_feedback_path)
-      return
-    end
+    redirect_to_login_page_if_anonymous_user and return
 
     @feedback = Feedback.new
   end
