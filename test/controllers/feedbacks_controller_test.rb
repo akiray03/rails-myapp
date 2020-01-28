@@ -60,4 +60,20 @@ class FeedbacksControllerTest < ActionDispatch::IntegrationTest
     get edit_feedback_url(@feedback)
     assert_response :success
   end
+
+  test "should update feedback with customer user" do
+    @feedback.save
+    @user.role = "support"
+    @user.save
+    patch feedback_url(@feedback), params: { feedback: { description: @feedback.description, title: @feedback.title } }
+    assert_redirected_to feedback_url(@feedback)
+  end
+
+  test "should update feedback with support user" do
+    @user.role = "support"
+    @user.save
+    @feedback.save
+    patch feedback_url(@feedback), params: { feedback: { description: @feedback.description, title: @feedback.title } }
+    assert_redirected_to feedback_url(@feedback)
+  end
 end
