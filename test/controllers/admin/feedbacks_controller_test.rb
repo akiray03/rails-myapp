@@ -12,32 +12,6 @@ class Admin::FeedbacksControllerTest < ActionDispatch::IntegrationTest
     post login_path, params: { email: @user.email, password: 'password' }
   end
 
-  test "should get index redirect to top page" do
-    @user.role = "customer"
-    @user.save!
-    get admin_feedbacks_url
-    assert_redirected_to root_url
-  end
-
-  test "should get index" do
-    @user.role = "support"
-    @user.save!
-    get admin_feedbacks_url
-    assert_response :success
-  end
-
-  test "should get show redirect to customer page" do
-    get admin_feedback_url(@feedback)
-    assert_redirected_to @feedback
-  end
-
-  test "should get show" do
-    @user.role = "support"
-    @user.save
-    get admin_feedback_url(@feedback)
-    assert_response :success
-  end
-
   test "should get edit redirect to feedback page" do
     @user.role = "customer"
     @user.save!
