@@ -1,10 +1,14 @@
 class FeedbacksController < ApplicationController
-  before_action :set_feedback, only: [:show]
+  before_action :set_feedback, only: [:edit, :show, :update]
 
   # GET /feedbacks
   # GET /feedbacks.json
   def index
-    redirect_to_login_page_if_anonymous_user and return
+    unless current_user
+      flash[:notice] = "Please login"
+      redirect_to login_path(redirect_to: request.path)
+      return
+    end
 
     if current_user.support?
       @feedbacks = Feedback.all.order(updated_at: :desc)
@@ -16,21 +20,35 @@ class FeedbacksController < ApplicationController
   # GET /feedbacks/1
   # GET /feedbacks/1.json
   def show
+    unless current_user
+      flash[:notice] = "Please login"
+      redirect_to login_path(redirect_to: request.path)
+      return
+    end
+
     @feedback_comment = FeedbackComment.new(feedback_id: @feedback.id)
   end
 
   # GET /feedbacks/new
   def new
-    redirect_to_login_page_if_anonymous_user and return
+    unless current_user
+      flash[:notice] = "Please login"
+      redirect_to login_path(redirect_to: request.path)
+      return
+    end
 
     @feedback = Feedback.new
   end
 
   def edit
-    @feedback = Feedback.find(params[:id])
+    unless current_user
+      flash[:notice] = "Please login"
+      redirect_to login_path(redirect_to: request.path)
+      return
+    end
 
-    unless current_user&.support?
-      flash[:notice] = "Cloud not access to feedback admin page."
+    unless current_user.support?
+      flash[:notice] = "Cloud not edit by you."
       redirect_to @feedback
     end
   end
@@ -39,7 +57,8 @@ class FeedbacksController < ApplicationController
   # POST /feedbacks.json
   def create
     unless current_user
-      redirect_to login_path(redirect_to: feedbacks_path)
+      flash[:notice] = "Please login"
+      redirect_to login_path(redirect_to: request.path)
       return
     end
 
@@ -58,7 +77,17 @@ class FeedbacksController < ApplicationController
   end
 
   def update
-    @feedback = Feedback.find(params[:id])
+    unless current_user
+      flash[:notice] = "Please login"
+      redirect_to login_path(redirect_to: request.path)
+      return
+    end
+
+    unless current_user.support?
+      flash[:notice] = "Cloud not edit by you."
+      redirect_to @feedback
+      return
+    end
 
     unless current_user&.support?
       flash[:notice] = "Cloud not access to feedback admin page."
