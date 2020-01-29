@@ -25,12 +25,12 @@
 
   <div class="field">
     <%= form.label :priority %>
-    <%= form.text_field :priority %>
+    <%= form.select :priority, Feedback::PRIORITY_CHOICES, include_blank: true %>
   </div>
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.text_field :status %>
+    <%= form.select :status, Feedback::STATUS_CHOICES, include_blank: true %>
   </div>
 
   <div class="field">
