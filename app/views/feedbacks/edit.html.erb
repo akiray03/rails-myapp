@@ -1,6 +1,48 @@
 <h1>Editing Feedback</h1>
 
-<%= render 'form', feedback: @feedback %>
+<p>
+  <strong>Title:</strong>
+  <%= @feedback.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+<pre><%= @feedback.description %></pre>
+</p>
+
+<%= form_with(model: @feedback, local: true) do |form| %>
+  <% if @feedback.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(feedback.errors.count, "error") %> prohibited this feedback from being saved:</h2>
+
+      <ul>
+        <% feedback.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :priority %>
+    <%= form.text_field :priority %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :support_description %>
+    <%= form.text_area :support_description, cols: 60, rows: 10 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
 
 <%= link_to 'Show', feedback_path(@feedback) %> |
 <%= link_to 'Back', feedbacks_path %>

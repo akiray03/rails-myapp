@@ -27,6 +27,27 @@
   <%= time_ago_in_words @feedback.updated_at %> ago
 </p>
 
+<% if current_user.support? %>
+  <div style="background: #ccc; border: #777 solid; padding: 5px;">
+    <h3>サポートチーム専用情報</h3>
+
+    <p>
+      <strong>Priority:</strong>
+      <%= @feedback.priority %>
+    </p>
+
+    <p>
+      <strong>Status:</strong>
+      <%= @feedback.status %>
+    </p>
+
+    <p>
+      <strong>Support Description:</strong>
+      <%= @feedback.support_description %>
+    </p>
+  </div>
+<% end %>
+
 <h2>Comments</h2>
 
 <% @feedback.feedback_comments.each do |comment| %>
